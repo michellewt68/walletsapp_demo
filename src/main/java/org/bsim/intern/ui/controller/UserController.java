@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,9 +20,27 @@ public class UserController {
     IUserInterface userService;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-//   pake list krn getusers lebih dari 1 users
+    //pake list krn getusers lebih dari 1 users
+    //controller relate ke service
     public List<UserResponse> getUsers(){
-        return null;
+        List<UserResponse> listUser =new ArrayList<>();
+        ModelMapper mapper=new ModelMapper();
+
+        List<UserDTO> users=userService.getListUser();
+        for(UserDTO userDTO : users){
+            listUser.add(mapper.map(userDTO, UserResponse.class));
+        }
+
+        return listUser;
+    }
+
+    @GetMapping(path = "/{username}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public UserResponse getUserByUsername(@PathVariable String username){
+
+        UserDTO getUser= userService.getUserByUsername(username);
+        if (getUser==null) return null;
+
+        return new ModelMapper().map(getUser, UserResponse.class);
     }
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
