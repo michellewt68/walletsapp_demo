@@ -1,6 +1,7 @@
 package org.bsim.intern.shared.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 //jembatan dari client ke service, service ke repository
 public class UserDTO implements Serializable {
@@ -9,6 +10,7 @@ public class UserDTO implements Serializable {
     private long id;
     private String userId;
     private String userName;
+    private List<WalletDTO> listWallet;
 
     public long getId() {
         return id;
@@ -32,5 +34,13 @@ public class UserDTO implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public List<WalletDTO> getListWallet() {
+        return listWallet;
+    }
+
+    public void setListWallet(List<WalletDTO> listWallet) {
+        this.listWallet = listWallet;
     }
 }

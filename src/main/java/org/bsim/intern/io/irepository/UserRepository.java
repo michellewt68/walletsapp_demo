@@ -8,4 +8,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     //nambah method yg berkaitan dgn userEntity
     UserEntity findByUsername(String username);
 
+    UserEntity findByUserid(String userid);
+
 }
